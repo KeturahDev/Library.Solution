@@ -1,0 +1,12 @@
+@{
+  Layout = "_Layout";
+}
+
+@model Library.Models.Author
+
+<h1>DELETE @Html.DisplayFor(model => model.Name)?</h1>
+
+@using(Html.BeginForm())
+{
+  <input type="submit" class="btn-block" value="YES, DELETE" />
+}
