@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using ToDoList.Models;
+using Library.Models;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Authorization;
@@ -106,7 +106,7 @@ namespace Library.Controllers
     [HttpPost, ActionName("Delete")]
     public ActionResult DeleteConfirmed(int id)
     {
-      Book thisBook = _db.Books.FirstOrDefault(book = book.BookId == id);
+      Book thisBook = _db.Books.FirstOrDefault(book => book.BookId == id);
       _db.Books.Remove(thisBook);
       _db.SaveChanges();
       return RedirectToAction("Index");

@@ -10,7 +10,7 @@ namespace Library.Models
   {
     private readonly LibraryContext _db;
 
-    public CategoriesController(LibraryContext db)
+    public AuthorsController(LibraryContext db)
     {
       _db = db;
     }

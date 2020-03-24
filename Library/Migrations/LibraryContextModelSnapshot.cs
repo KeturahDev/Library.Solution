@@ -84,13 +84,9 @@ namespace Library.Migrations
                     b.Property<int>("BookId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("CopyId");
-
                     b.Property<string>("Title");
 
                     b.HasKey("BookId");
-
-                    b.HasIndex("CopyId");
 
                     b.ToTable("Books");
                 });
@@ -141,6 +137,8 @@ namespace Library.Migrations
                     b.Property<int>("BookId");
 
                     b.HasKey("CopyId");
+
+                    b.HasIndex("BookId");
 
                     b.ToTable("Copies");
                 });
@@ -264,13 +262,6 @@ namespace Library.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("Library.Models.Book", b =>
-                {
-                    b.HasOne("Library.Models.Copy")
-                        .WithMany("Books")
-                        .HasForeignKey("CopyId");
-                });
-
             modelBuilder.Entity("Library.Models.BookAuthor", b =>
                 {
                     b.HasOne("Library.Models.Author", "Author")
@@ -289,6 +280,14 @@ namespace Library.Migrations
                     b.HasOne("Library.Models.Patron")
                         .WithMany("Checkouts")
                         .HasForeignKey("PatronId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Library.Models.Copy", b =>
+                {
+                    b.HasOne("Library.Models.Book")
+                        .WithMany("Copies")
+                        .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
