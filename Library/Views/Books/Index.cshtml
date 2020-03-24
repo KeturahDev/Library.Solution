@@ -5,7 +5,17 @@
   
 <h1>CURRENT BOOKS IN LIBRARY</h1>
 
-@foreach(Book book in Model)
+@if (Model.Any())
 {
-  <li>@Html.ActionLink($"{book.Title}", "Details", new {id = book.BookId}) | Copies: @book.Copies.Count</li>
+  <ul>
+    @foreach(Book book in Model)
+    {
+      <li>@Html.ActionLink($"{book.Title}", "Details", new {id = book.BookId}) | Copies: @book.Copies.Count</li>
+    }
+  </ul>
 }
+else
+{
+  <h4>no books added yet</h4>
+}
+
