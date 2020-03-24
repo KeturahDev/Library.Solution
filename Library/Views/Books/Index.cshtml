@@ -10,7 +10,7 @@
   <ul>
     @foreach(Book book in Model)
     {
-      <li>@Html.ActionLink($"{book.Title}", "Details", new {id = book.BookId}) | Copies: @book.Copies.Count</li>
+      <li>@Html.ActionLink($"{book.Title}", "Details", new {id = book.BookId})</li>
     }
   </ul>
 }

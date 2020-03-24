@@ -1,0 +1,17 @@
+@{
+  Layout="_Layout";
+}
+
+@model Library.Models.Book
+
+<h1>EDIT DETAILS FOR: @Html.DisplayFor(model => model.Title)</h1>
+
+@using (Html.BeginForm())
+{
+  @Html.HiddenFor(model => model.BookId)
+
+  @Html.LabelFor(model => model.Title)
+  @Html.TextBoxFor(model => model.Title)
+  <br>
+  <input type="submit" class="btn-block" value="SAVE CHANGES">
+}
