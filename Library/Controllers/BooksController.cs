@@ -48,6 +48,7 @@ namespace Library.Controllers
         .Include(book => book.Authors)
         .ThenInclude(join => join.Author)
         .FirstOrDefault(book => book.BookId == id);
+      ViewBag.AvailableCopies = _db.Copies.Where(copy => copy.BookId == id && copy.Available == true).ToList();
       return View(thisBook);
     }
 
@@ -67,7 +68,7 @@ namespace Library.Controllers
       }
       _db.Entry(book).State = EntityState.Modified;
       _db.SaveChanges();
-      return View("Details", book);
+      return RedirectToAction("Details", new {id = book.BookId});
     }
 
     public ActionResult AddAuthor(int id)
@@ -85,7 +86,7 @@ namespace Library.Controllers
         _db.BookAuthor.Add(new BookAuthor {AuthorId = AuthorId, BookId = book.BookId});
       }
       _db.SaveChanges();
-      return View("Details", book);
+      return RedirectToAction("Details", new { id = book.BookId});
     }
 
     public ActionResult Delete(int id)
@@ -100,7 +101,7 @@ namespace Library.Controllers
       var joinEntry = _db.BookAuthor.FirstOrDefault(entry => entry.BookAuthorId == joinId);
       _db.BookAuthor.Remove(joinEntry);
       _db.SaveChanges();
-      return RedirectToAction("Index");
+      return RedirectToAction("Details", new { id = joinEntry.BookId});
     }
 
     [HttpPost, ActionName("Delete")]
