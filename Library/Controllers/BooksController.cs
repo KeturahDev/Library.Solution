@@ -92,7 +92,7 @@ namespace Library.Controllers
     public ActionResult Delete(int id)
     {
       Book thisBook = _db.Books.FirstOrDefault(book => book.BookId == id);
-      return View();
+      return View(thisBook);
     }
 
     [HttpPost]
