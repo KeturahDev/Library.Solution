@@ -6,6 +6,7 @@
 
 @using (Html.BeginForm())
 {
+  @Html.HiddenFor(model => model.AuthorId)
   @Html.LabelFor(model => model.Name)
   @Html.TextBoxFor(model => model.Name)
   <br>

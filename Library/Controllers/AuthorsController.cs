@@ -53,7 +53,7 @@ namespace Library.Models
     {
       _db.Entry(author).State = EntityState.Modified;
       _db.SaveChanges();
-      return View("Details", author);
+      return RedirectToAction("Details", new { id = author.AuthorId });
     }
 
     public ActionResult Delete(int id)
