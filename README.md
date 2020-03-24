@@ -19,6 +19,7 @@ This application is a library catalog to catalog a library's books and let patro
 * As a librarian, the application allows me to see a list of overdue books, so that I can call up the patron who checked them out and tell them to bring them back.
 
 ![Database relationships:](https://cdn.discordapp.com/attachments/692032456085471342/692044073959161906/unknown.png)
+![Website navigation](https://cdn.discordapp.com/attachments/692032456085471342/692059330270461982/unknown.png)
 
 ## Setup/Installation Requirements
 
