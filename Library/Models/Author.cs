@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Library
+namespace Library.Models
 {
   public class Author
   {

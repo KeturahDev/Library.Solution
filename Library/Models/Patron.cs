@@ -6,7 +6,7 @@ namespace Library.Models
   {
     public Patron()
     {
-      this.Checkouts = new Hashset<Checkout>();
+      this.Checkouts = new HashSet<Checkout>();
     }
     public int PatronId {get;set;}
     public string Name {get;set;}

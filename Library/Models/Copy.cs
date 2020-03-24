@@ -6,7 +6,7 @@ namespace Library.Models
   {
     public Copy()
     {
-      this.Books = new Hashset<Book>();
+      this.Books = new HashSet<Book>();
     }
     public int CopyId {get;set;}
     public int BookId {get;set;}
