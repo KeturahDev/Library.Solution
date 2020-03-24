@@ -1,0 +1,18 @@
+@{
+  Layout="_Layout";
+}
+
+@model Library.Models.Book
+
+<h1>ADD NEW BOOK</h1>
+
+@using (Html.BeginForm())
+{
+  @Html.LabelFor(model => model.Title)
+  @Html.TextBoxFor(model => model.Title)
+  <br>
+  @Html.Label("Select Author")
+  @Html.DropDownList("AuthorId")
+  <br>
+  <input type="submit" class="btn-block" value="ADD BOOK">
+}
