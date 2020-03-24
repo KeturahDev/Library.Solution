@@ -6,12 +6,19 @@
 
 ## Description
 
-This application ...
+This application is a library catalog to catalog a library's books and let patrons check them out.
 
 ## Specifications:
-* 
-* 
-* 
+* As a librarian, the application allows me to create, read, update, delete, and list books in the catalog, so that we can keep track of our inventory.
+* As a librarian, the application allows me to search for a book by author or title, so that I can find a book when there are a lot of books in the library.
+* As a librarian, the application allows me to enter multiple authors for a book, so that I can include accurate information in my catalog.
+* As a patron, the application allows me to check a book out, so that I can take it home with me.
+* As a patron, the application allows me to know how many copies of a book are on the shelf, so that I can see if any are available.
+* As a patron, the application allows me to see a history of all the books I checked out, so that I can look up the name of that awesome sci-fi novel I read three years ago.
+* As a patron, the application allows me to know when a book I checked out is due, so that I know when to return it.
+* As a librarian, the application allows me to see a list of overdue books, so that I can call up the patron who checked them out and tell them to bring them back.
+
+![Database relationships:](https://cdn.discordapp.com/attachments/692032456085471342/692044073959161906/unknown.png)
 
 ## Setup/Installation Requirements
 
@@ -69,7 +76,7 @@ _Enter the following commands in Terminal (macOS) or PowerShell (Windows):_
 
 _Confirm that you have navigated to the Library.Solution directory (e.g., by entering the command_ ``pwd`` _in Terminal)._
 
-_Recreate the ``doctor_office`` database using the following commands (in Terminal on macOS or PowerShell on Windows):_
+_Recreate the ``library_catalog`` database using the following commands (in Terminal on macOS or PowerShell on Windows):_
 * ``dotnet ef migrations add Initial``
 * ``dotnet ef database update``
 
