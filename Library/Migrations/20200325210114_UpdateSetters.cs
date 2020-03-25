@@ -2,7 +2,7 @@
 
 namespace Library.Migrations
 {
-    public partial class RemoveExtraPatronId : Migration
+    public partial class UpdateSetters : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

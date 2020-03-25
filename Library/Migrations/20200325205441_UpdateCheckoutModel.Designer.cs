@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Library.Migrations
 {
     [DbContext(typeof(LibraryContext))]
-    [Migration("20200324211123_addIdentity")]
-    partial class addIdentity
+    [Migration("20200325205441_UpdateCheckoutModel")]
+    partial class UpdateCheckoutModel
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -120,13 +120,17 @@ namespace Library.Migrations
 
                     b.Property<string>("DueDate");
 
-                    b.Property<int>("PatronId");
+                    b.Property<string>("PatronId");
+
+                    b.Property<int?>("PatronId1");
 
                     b.Property<bool>("Returned");
 
                     b.HasKey("CheckoutId");
 
-                    b.HasIndex("PatronId");
+                    b.HasIndex("CopyId");
+
+                    b.HasIndex("PatronId1");
 
                     b.ToTable("Checkouts");
                 });
@@ -152,7 +156,7 @@ namespace Library.Migrations
                     b.Property<int>("PatronId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Name");
+                    b.Property<string>("AccountUserId");
 
                     b.HasKey("PatronId");
 
@@ -281,10 +285,14 @@ namespace Library.Migrations
 
             modelBuilder.Entity("Library.Models.Checkout", b =>
                 {
-                    b.HasOne("Library.Models.Patron")
-                        .WithMany("Checkouts")
-                        .HasForeignKey("PatronId")
+                    b.HasOne("Library.Models.Copy", "Copy")
+                        .WithMany()
+                        .HasForeignKey("CopyId")
                         .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Library.Models.Patron", "Patron")
+                        .WithMany("Checkouts")
+                        .HasForeignKey("PatronId1");
                 });
 
             modelBuilder.Entity("Library.Models.Copy", b =>

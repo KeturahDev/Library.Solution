@@ -2,41 +2,41 @@
 
 namespace Library.Migrations
 {
-    public partial class AddBookPropertyToCheckout : Migration
+    public partial class UpdateCheckout : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<int>(
-                name: "BookId",
+            migrationBuilder.AddColumn<string>(
+                name: "UserId",
                 table: "Checkouts",
                 nullable: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Checkouts_BookId",
+                name: "IX_Checkouts_UserId",
                 table: "Checkouts",
-                column: "BookId");
+                column: "UserId");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Checkouts_Books_BookId",
+                name: "FK_Checkouts_AspNetUsers_UserId",
                 table: "Checkouts",
-                column: "BookId",
-                principalTable: "Books",
-                principalColumn: "BookId",
+                column: "UserId",
+                principalTable: "AspNetUsers",
+                principalColumn: "Id",
                 onDelete: ReferentialAction.Restrict);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_Checkouts_Books_BookId",
+                name: "FK_Checkouts_AspNetUsers_UserId",
                 table: "Checkouts");
 
             migrationBuilder.DropIndex(
-                name: "IX_Checkouts_BookId",
+                name: "IX_Checkouts_UserId",
                 table: "Checkouts");
 
             migrationBuilder.DropColumn(
-                name: "BookId",
+                name: "UserId",
                 table: "Checkouts");
         }
     }

@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Library.Migrations
 {
     [DbContext(typeof(LibraryContext))]
-    [Migration("20200324165322_Initial")]
-    partial class Initial
+    [Migration("20200325210114_UpdateSetters")]
+    partial class UpdateSetters
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -86,13 +86,9 @@ namespace Library.Migrations
                     b.Property<int>("BookId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("CopyId");
-
                     b.Property<string>("Title");
 
                     b.HasKey("BookId");
-
-                    b.HasIndex("CopyId");
 
                     b.ToTable("Books");
                 });
@@ -124,13 +120,17 @@ namespace Library.Migrations
 
                     b.Property<string>("DueDate");
 
-                    b.Property<int>("PatronId");
+                    b.Property<string>("PatronId");
+
+                    b.Property<int?>("PatronId1");
 
                     b.Property<bool>("Returned");
 
                     b.HasKey("CheckoutId");
 
-                    b.HasIndex("PatronId");
+                    b.HasIndex("CopyId");
+
+                    b.HasIndex("PatronId1");
 
                     b.ToTable("Checkouts");
                 });
@@ -140,9 +140,13 @@ namespace Library.Migrations
                     b.Property<int>("CopyId")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<bool>("Available");
+
                     b.Property<int>("BookId");
 
                     b.HasKey("CopyId");
+
+                    b.HasIndex("BookId");
 
                     b.ToTable("Copies");
                 });
@@ -152,7 +156,7 @@ namespace Library.Migrations
                     b.Property<int>("PatronId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Name");
+                    b.Property<string>("AccountUserId");
 
                     b.HasKey("PatronId");
 
@@ -266,13 +270,6 @@ namespace Library.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("Library.Models.Book", b =>
-                {
-                    b.HasOne("Library.Models.Copy")
-                        .WithMany("Books")
-                        .HasForeignKey("CopyId");
-                });
-
             modelBuilder.Entity("Library.Models.BookAuthor", b =>
                 {
                     b.HasOne("Library.Models.Author", "Author")
@@ -288,9 +285,21 @@ namespace Library.Migrations
 
             modelBuilder.Entity("Library.Models.Checkout", b =>
                 {
-                    b.HasOne("Library.Models.Patron")
+                    b.HasOne("Library.Models.Copy", "Copy")
+                        .WithMany()
+                        .HasForeignKey("CopyId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Library.Models.Patron", "Patron")
                         .WithMany("Checkouts")
-                        .HasForeignKey("PatronId")
+                        .HasForeignKey("PatronId1");
+                });
+
+            modelBuilder.Entity("Library.Models.Copy", b =>
+                {
+                    b.HasOne("Library.Models.Book")
+                        .WithMany("Copies")
+                        .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

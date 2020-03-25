@@ -114,8 +114,6 @@ namespace Library.Migrations
                     b.Property<int>("CheckoutId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("BookId");
-
                     b.Property<int>("CopyId");
 
                     b.Property<string>("DueDate");
@@ -126,11 +124,15 @@ namespace Library.Migrations
 
                     b.Property<bool>("Returned");
 
+                    b.Property<string>("UserId");
+
                     b.HasKey("CheckoutId");
 
-                    b.HasIndex("BookId");
+                    b.HasIndex("CopyId");
 
                     b.HasIndex("PatronId1");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Checkouts");
                 });
@@ -285,13 +287,18 @@ namespace Library.Migrations
 
             modelBuilder.Entity("Library.Models.Checkout", b =>
                 {
-                    b.HasOne("Library.Models.Book", "Book")
+                    b.HasOne("Library.Models.Copy", "Copy")
                         .WithMany()
-                        .HasForeignKey("BookId");
+                        .HasForeignKey("CopyId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("Library.Models.Patron")
+                    b.HasOne("Library.Models.Patron", "Patron")
                         .WithMany("Checkouts")
                         .HasForeignKey("PatronId1");
+
+                    b.HasOne("Library.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Library.Models.Copy", b =>
