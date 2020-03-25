@@ -73,6 +73,18 @@ namespace Library.Controllers
       return RedirectToAction("Details", new {id = book.BookId});
     }
 
+    public ActionResult Search(List<Book> results)
+    {
+      return View(results);
+    }
+
+    [HttpPost]
+    public ActionResult Search(string query)
+    {
+      List<Book> searchResults = _db.Books.Where(book => book.Title.Contains(query)).ToList();
+      return RedirectToAction("Search", searchResults);
+    }
+
     public ActionResult AddAuthor(int id)
     {
       Book thisBook = _db.Books.FirstOrDefault(book => book.BookId == id);

@@ -1,0 +1,11 @@
+@{
+  Layout = "_Layout";
+}
+
+@using Library.Models
+@model List<Library.Models.Copy>
+
+@foreach (Copy copy in Model)
+{
+  <li>@copy.Book.Title | Available: @copy.Available</li>
+}

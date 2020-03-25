@@ -11,7 +11,8 @@
   {
     @if (checkout.Returned == false)
     {
-      <li>@checkout.Copy.Book.Title</li>
+      @* trying to display book title, but unavailable, so temp displaying book ID *@
+      <li>@checkout.Copy.Book</li>
       <ul>
         <li>Due date: @checkout.DueDate</li>
         @using (Html.BeginForm("ReturnBook", "Copies", FormMethod.Post))

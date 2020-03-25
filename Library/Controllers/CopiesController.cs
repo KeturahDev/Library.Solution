@@ -33,6 +33,7 @@ namespace Library.Controllers
     public ActionResult Create (Copy copy)
     {
       _db.Copies.Add(copy);
+      copy.Book = _db.Books.FirstOrDefault(book => book.BookId == copy.BookId);
       _db.SaveChanges();
       return RedirectToAction("Details", "Books", new { id = copy.BookId });
     }

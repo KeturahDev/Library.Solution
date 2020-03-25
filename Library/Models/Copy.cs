@@ -7,6 +7,6 @@ namespace Library.Models
     public int CopyId {get;set;}
     public bool Available {get; set;} = true;
     public int BookId {get;set;}
-    public virtual Book Book { get; }
+    public virtual Book Book { get; set;}
   }
 }

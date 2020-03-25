@@ -28,10 +28,10 @@ namespace Library.Controllers
     {
       var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
       var currentUser = await _userManager.FindByIdAsync(userId);
-      var userCheckouts = _db.Checkouts.Where(checkout => checkout.User.Id == currentUser.Id);
+      var userCheckouts = _db.Checkouts.Include(checkout => checkout.Copy).Where(checkout => checkout.User.Id == currentUser.Id);
       return View(userCheckouts);
     }
-      
+    
     [HttpPost]
     public async Task<ActionResult> Checkout(int BookId)
     {

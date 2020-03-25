@@ -131,3 +131,8 @@ input, textarea, select {
   margin-left: 1%;
   padding: 1%;
 }
+
+.form-inline input.btn {
+  margin-bottom: 1%;
+  margin-top: 1%;
+}

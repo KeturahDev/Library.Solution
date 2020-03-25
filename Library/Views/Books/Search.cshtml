@@ -1,0 +1,17 @@
+@using Library.Models
+@model List<Library.Models.Book>
+
+@if (Model.Any())
+{
+  <h4>THE FOLLOWING MATCH YOUR SEARCH:</h4>
+  <ul>
+    @foreach(Book book in Model)
+    {
+      <li>@Html.ActionLink($"{book.Title}", "Details", new {id = book.BookId})</li>
+    }
+  </ul>
+}
+else
+{
+  <h4>no books matched your search</h4>
+}

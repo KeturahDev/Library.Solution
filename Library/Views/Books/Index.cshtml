@@ -5,6 +5,16 @@
   
 <h1>CURRENT BOOKS IN LIBRARY</h1>
 
+<div class="form-inline">
+  @using (Html.BeginForm("Search", "Books"))
+  {
+    <label for="query">SEARCH FOR A BOOK:</label>
+    <input type="text" name="query" id="query">
+    <br>
+    <input type="submit" class="btn" value="Search" />
+  }
+</div>
+
 @if (Model.Any())
 {
   <ul>
