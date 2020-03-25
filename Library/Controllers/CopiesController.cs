@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 
 namespace Library.Controllers
 {
@@ -21,14 +22,22 @@ namespace Library.Controllers
       return View(_db.Copies.ToList());
     }
 
-    // No create get method, will instead have a button (on Book Details page) for adding new copies that routes to create post method
-
     [HttpPost]
     public ActionResult Create (Copy copy)
     {
       _db.Copies.Add(copy);
       _db.SaveChanges();
       return RedirectToAction("Details", "Books", new { id = copy.BookId });
+    }
+
+    [HttpPost]
+    public ActionResult Checkout(int BookId)
+    {
+      Copy availableCopy = _db.Copies.FirstOrDefault(copy => copy.BookId == BookId && copy.Available == true);
+      availableCopy.Available = false;
+      _db.Entry(availableCopy).State = EntityState.Modified;
+      _db.SaveChanges();
+      return RedirectToAction("Details", "Books", new { id = BookId});
     }
 
     public ActionResult Details(int id)

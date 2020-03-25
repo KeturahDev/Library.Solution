@@ -27,7 +27,7 @@ else
   }
 }
 
-<h4>Total copies: @Model.Copies.Count</h4>
+<h4>Total copies: @ViewBag.TotalCopies.Count</h4>
 <h4>Available copies: @ViewBag.AvailableCopies.Count</h4>
 
 @using (Html.BeginForm("Create", "Copies", FormMethod.Post))
@@ -35,6 +35,13 @@ else
   @Html.HiddenFor(model => model.BookId)
   <input type="submit" class="btn-block" value="ADD NEW COPY" />
 }
+
+@using (Html.BeginForm("Checkout", "Copies", FormMethod.Post))
+{
+  @Html.HiddenFor(model => model.BookId)
+  <input type="submit" class="btn-block" value="CHECKOUT BOOK" />
+}
+
 <div class="three-buttons">
   @Html.ActionLink("ADD AUTHOR", "AddAuthor", null, new { id = @Model.BookId }, new { @class="btn"})
   @Html.ActionLink("EDIT BOOK DETAILS", "Edit", null, new { id = @Model.BookId }, new { @class="btn"})

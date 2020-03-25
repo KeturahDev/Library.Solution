@@ -38,6 +38,7 @@ namespace Library.Controllers
       {
         _db.BookAuthor.Add(new BookAuthor() {AuthorId = AuthorId, BookId = book.BookId});
       }
+      _db.Copies.Add(new Copy() { BookId = book.BookId});
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
@@ -49,6 +50,7 @@ namespace Library.Controllers
         .ThenInclude(join => join.Author)
         .FirstOrDefault(book => book.BookId == id);
       ViewBag.AvailableCopies = _db.Copies.Where(copy => copy.BookId == id && copy.Available == true).ToList();
+      ViewBag.TotalCopies = _db.Copies.Where(copy => copy.BookId == id && (copy.Available == true || copy.Available == false)).ToList();
       return View(thisBook);
     }
 
