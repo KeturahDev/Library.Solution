@@ -3,14 +3,16 @@ using System;
 using Library.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Library.Migrations
 {
     [DbContext(typeof(LibraryContext))]
-    partial class LibraryContextModelSnapshot : ModelSnapshot
+    [Migration("20200325155012_UpdateModels")]
+    partial class UpdateModels
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -35,6 +37,8 @@ namespace Library.Migrations
                     b.Property<bool>("LockoutEnabled");
 
                     b.Property<DateTimeOffset?>("LockoutEnd");
+
+                    b.Property<string>("Name");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256);
@@ -114,19 +118,19 @@ namespace Library.Migrations
                     b.Property<int>("CheckoutId")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("ApplicationUserId");
+
                     b.Property<int>("CopyId");
 
                     b.Property<string>("DueDate");
 
-                    b.Property<string>("PatronId");
-
-                    b.Property<int?>("PatronId1");
+                    b.Property<int>("PatronId");
 
                     b.Property<bool>("Returned");
 
                     b.HasKey("CheckoutId");
 
-                    b.HasIndex("PatronId1");
+                    b.HasIndex("ApplicationUserId");
 
                     b.ToTable("Checkouts");
                 });
@@ -145,18 +149,6 @@ namespace Library.Migrations
                     b.HasIndex("BookId");
 
                     b.ToTable("Copies");
-                });
-
-            modelBuilder.Entity("Library.Models.Patron", b =>
-                {
-                    b.Property<int>("PatronId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("AccountUserId");
-
-                    b.HasKey("PatronId");
-
-                    b.ToTable("Patrons");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -281,9 +273,9 @@ namespace Library.Migrations
 
             modelBuilder.Entity("Library.Models.Checkout", b =>
                 {
-                    b.HasOne("Library.Models.Patron")
+                    b.HasOne("Library.Models.ApplicationUser")
                         .WithMany("Checkouts")
-                        .HasForeignKey("PatronId1");
+                        .HasForeignKey("ApplicationUserId");
                 });
 
             modelBuilder.Entity("Library.Models.Copy", b =>
