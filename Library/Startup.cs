@@ -32,7 +32,7 @@ namespace Library
       services.AddIdentity<ApplicationUser, IdentityRole>()
         .AddEntityFrameworkStores<LibraryContext>()
         .AddDefaultTokenProviders();
-
+      
       services.Configure<IdentityOptions>(options =>
       {
         options.Password.RequireDigit = false;
