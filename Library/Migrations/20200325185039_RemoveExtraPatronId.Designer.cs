@@ -3,14 +3,16 @@ using System;
 using Library.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Library.Migrations
 {
     [DbContext(typeof(LibraryContext))]
-    partial class LibraryContextModelSnapshot : ModelSnapshot
+    [Migration("20200325185039_RemoveExtraPatronId")]
+    partial class RemoveExtraPatronId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -114,8 +116,6 @@ namespace Library.Migrations
                     b.Property<int>("CheckoutId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("BookId");
-
                     b.Property<int>("CopyId");
 
                     b.Property<string>("DueDate");
@@ -127,8 +127,6 @@ namespace Library.Migrations
                     b.Property<bool>("Returned");
 
                     b.HasKey("CheckoutId");
-
-                    b.HasIndex("BookId");
 
                     b.HasIndex("PatronId1");
 
@@ -285,10 +283,6 @@ namespace Library.Migrations
 
             modelBuilder.Entity("Library.Models.Checkout", b =>
                 {
-                    b.HasOne("Library.Models.Book", "Book")
-                        .WithMany()
-                        .HasForeignKey("BookId");
-
                     b.HasOne("Library.Models.Patron")
                         .WithMany("Checkouts")
                         .HasForeignKey("PatronId1");

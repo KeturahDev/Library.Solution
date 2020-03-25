@@ -7,5 +7,6 @@ namespace Library.Models
     public string PatronId {get;set;}
     public int CopyId {get;set;}
     public bool Returned {get;set;}
+    public Book Book {get;set;}
   }
 }
