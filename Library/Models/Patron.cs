@@ -8,8 +8,9 @@ namespace Library.Models
     {
       this.Checkouts = new HashSet<Checkout>();
     }
+
     public int PatronId {get;set;}
-    public string Name {get;set;}
+    public string AccountUserId {get;set;}
     public virtual ICollection<Checkout> Checkouts {get;set;}
   }
 }
