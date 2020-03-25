@@ -5,18 +5,25 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Library.Controllers
 {
   public class CopiesController : Controller
   {
     private readonly LibraryContext _db;
+    private readonly UserManager<ApplicationUser> _userManager;
 
-    public CopiesController(LibraryContext db)
+    public CopiesController(LibraryContext db, UserManager<ApplicationUser> userManager)
     {
       _db = db;
+      _userManager = userManager;
     }
 
+    [Authorize]
     public ActionResult Index()
     {
       return View(_db.Copies.ToList());
@@ -35,29 +42,6 @@ namespace Library.Controllers
       Copy thisCopy = _db.Copies.FirstOrDefault(copy => copy.CopyId == id);
       return View(thisCopy);
     }
-
-    public ActionResult Edit(int id)
-    {
-      Copy thisCopy = _db.Copies.FirstOrDefault(copy => copy.CopyId == id);
-      ViewBag.BookId = new SelectList(_db.Books, "BookId", "Title");
-      return View(thisCopy);
-    }
-
-    [HttpPost]
-    public ActionResult Edit(Copy copy)
-    {
-      _db.Entry(copy).State = EntityState.Modified;
-      _db.SaveChanges();
-      return RedirectToAction("Details", "Books", new { id = copy.BookId });
-    }
-
-    // public ActionResult Delete(int id)
-    // {
-    //   Copy thisCopy = _db.Copies.FirstOrDefault(copy => copy.CopyId == id);
-    //   return View(thisCopy);
-    // }
-
-    // maybe have button on Copy Details that posts to Delete instead of having a view.
 
     [HttpPost, ActionName("Delete")]
     public ActionResult DeleteConfirmed(int id)

@@ -1,0 +1,33 @@
+@{
+  Layout="_Layout";
+}
+
+@using Library.Models
+@using System.Security.Claims
+@model IEnumerable<Library.Models.Checkout>
+
+  <h4>CURRENT CHECKOUTS</h4>
+  @foreach(Checkout checkout in Model)
+  {
+    @if (checkout.Returned == false)
+    {
+      <li>@checkout.Copy.Book.Title</li>
+      <ul>
+        <li>Due date: @checkout.DueDate</li>
+        @using (Html.BeginForm("ReturnBook", "Copies", FormMethod.Post))
+        {
+          @Html.Hidden("checkoutId", @checkout.CheckoutId)
+          <input type="submit" value="RETURN BOOK"/>
+        }
+      </ul>
+    }
+  }
+  <hr />
+  <h4>PREVIOUS CHECKOUTS</h4>
+  @foreach(Checkout checkout in Model)
+  {
+    @if (checkout.Returned == true)
+    {
+      <li>@Html.ActionLink($"{@checkout.Copy.Book.Title}", "Details", "Books", new { id = checkout.Copy.Book.BookId })</li>
+    }
+  }

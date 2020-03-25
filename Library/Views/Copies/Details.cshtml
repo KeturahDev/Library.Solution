@@ -1,0 +1,16 @@
+@{
+  Layout="_Layout";
+}
+
+@using Library.Models
+@model Library.Models.Copy
+
+<h1>COPY OF: @Html.DisplayFor(model => model.Book.Title)</h1>
+
+<h4>Available? @Html.DisplayFor(model => model.Available)</h4>
+
+@using (Html.BeginForm("Delete", "Copies", FormMethod.Post))
+{
+  @Html.HiddenFor(model => model.CopyId)
+  <input type="submit" class="btn-block" value="DELETE COPY" />
+}

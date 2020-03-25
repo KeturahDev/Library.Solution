@@ -25,14 +25,8 @@ namespace Library.Controllers
     public ActionResult Index()
     {
       string userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-      List<Checkout> checkouts = _db.Checkouts.Where(checkout => checkout.PatronId == userId && checkout.Returned == false).ToList();
-      List<Book> checkedOutBooks = new List<Book> {};
-      foreach(Checkout checkout in checkouts)
-      {
-        Book thisBook = checkout.Book;
-        checkedOutBooks.Add(thisBook);
-      }
-      return View(checkedOutBooks);
+      List<Checkout> checkouts = _db.Checkouts.Where(checkout => checkout.PatronId == userId).ToList();
+      return View(checkouts);
     }
 
     [HttpPost]

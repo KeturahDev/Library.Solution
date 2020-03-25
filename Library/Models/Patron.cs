@@ -11,6 +11,6 @@ namespace Library.Models
 
     public int PatronId {get;set;}
     public string AccountUserId {get;set;}
-    public virtual ICollection<Checkout> Checkouts {get;set;}
+    public virtual ICollection<Checkout> Checkouts {get; set;}
   }
 }

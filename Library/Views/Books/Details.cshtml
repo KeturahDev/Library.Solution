@@ -36,10 +36,13 @@ else
   <input type="submit" class="btn-block" value="ADD NEW COPY" />
 }
 
-@using (Html.BeginForm("Create", "Checkouts", FormMethod.Post))
+@if (ViewBag.AvailableCopies.Count >0 )
 {
-  @Html.HiddenFor(model => model.BookId)
-  <input type="submit" class="btn-block" value="CHECKOUT BOOK" />
+  @using (Html.BeginForm("Checkout", "Copies", FormMethod.Post))
+  {
+    @Html.HiddenFor(model => model.BookId)
+    <input type="submit" class="btn-block" value="CHECKOUT BOOK" />
+  }
 }
 
 <div class="three-buttons">
