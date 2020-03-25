@@ -36,6 +36,8 @@ namespace Library.Controllers
       IdentityResult result = await _userManager.CreateAsync(user, model.Password);
       if (result.Succeeded)
       {
+        _db.Patrons.Add(new Patron() { AccountUserId = user.Id });
+        _db.SaveChanges();
         return RedirectToAction("Login");
       }
       else

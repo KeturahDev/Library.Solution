@@ -30,16 +30,6 @@ namespace Library.Controllers
       return RedirectToAction("Details", "Books", new { id = copy.BookId });
     }
 
-    [HttpPost]
-    public ActionResult Checkout(int BookId)
-    {
-      Copy availableCopy = _db.Copies.FirstOrDefault(copy => copy.BookId == BookId && copy.Available == true);
-      availableCopy.Available = false;
-      _db.Entry(availableCopy).State = EntityState.Modified;
-      _db.SaveChanges();
-      return RedirectToAction("Details", "Books", new { id = BookId});
-    }
-
     public ActionResult Details(int id)
     {
       Copy thisCopy = _db.Copies.FirstOrDefault(copy => copy.CopyId == id);
